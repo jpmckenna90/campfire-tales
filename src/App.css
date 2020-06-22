@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,10 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+body{
+  background-image: url("../src/Assets/Images/middle-earth-4760561_1920.jpg");
+  background-size:cover;
+  background-repeat: no-repeat;
 }

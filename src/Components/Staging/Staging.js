@@ -1,14 +1,36 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Dropdown } from "react-bootstrap";
 import "./Staging.css";
 import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
 function Staging() {
+  const scenarios = ["one", "two", "three"];
+
+  // function to populate dropdown
+  const dropdown = () => {
+    // get array of all scenarios, map over it to create dropdown items
+    return scenarios.map((scenario) => {
+      return <Dropdown.Item>{scenario}</Dropdown.Item>;
+    });
+    // return items;
+  };
+  
   return (
     <Container fluid>
       <Row>
         <Col lg={12}>
-          <h1>We staging</h1>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Dropdown Button
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              {dropdown()}
+              {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+            </Dropdown.Menu>
+          </Dropdown>
         </Col>
       </Row>
       <Row>
