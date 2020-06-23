@@ -5,17 +5,30 @@ import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
 import API from "../../Utils/API";
 function Staging() {
+  // store list of boxes in state
   const [boxes, setBoxes] = useState([]);
+  // set active chosen box in state
+  const [chosenBox, setChosenBox] = useState("Select a Box");
+  // set active chosen scenario in state
+  const [chosenScenario, setChosenScenario] = useState("Select a Scenario");
 
-  // setBoxes(['1', '2', '3']);
-
+  //!TODO gotta be a better way to do this
   useEffect(() => {
     async function get() {
       let res = await API.getBoxes();
       let allBoxes = res.data;
-      console.log("allBoxes: " + JSON.stringify(allBoxes));
-      let newBoxes = allBoxes.map((box) => {
-        return <Dropdown.Item>{box.name}</Dropdown.Item>;
+      let newBoxes = [];
+      console.log("all boxes: " + JSON.stringify(allBoxes));
+      newBoxes = allBoxes.map((box) => {
+        return (
+          <Dropdown.Item
+            onClick={() => {
+              setChosenBox(box);
+            }}
+          >
+            {box}
+          </Dropdown.Item>
+        );
       });
       setBoxes(newBoxes);
     }
@@ -23,52 +36,40 @@ function Staging() {
   }, []);
 
   // useEffect(() => {
-  //     const boxes = await boxResponse.data.map((box) => {
-  //       return box.name;
-  //     });
-  //     console.log("boxes: " + boxes);
-  //     setBoxes(boxes);
-
-  //   getBoxes();
-  // }, []);
-
-  // function to populate dropdown
-  async function buildMenu() {
-    // if (boxes.length > 0) {
-    //   console.log('boxes > 0 . here they are: ' + boxes)
-    //   console.log('typeof boxes: ' + typeof boxes)
-    //   console.log('typeof boxes[0]: ' + typeof boxes[0])
-    //   let renderItems = boxes.map((box) => {
-    //     return box
-    //   });
-    //   return renderItems.map(box => {
-    //     return <Dropdown.Item>{box}</Dropdown.Item>
-    //   })
-    // } else {
-    //   console.log('boxes < 0')
-    // }
-    console.log(JSON.stringify(boxes));
-    // boxes.map((box) => {
-    //   return <Dropdown.Item>{box}</Dropdown.Item>;
-    // });
-    // console.log("newArr in build function: " + newArr);
-  }
+  //   API.
+  // })
+  useEffect(() => {
+    if (chosenBox !== "Select a Box") {
+      async function getEncounters() {
+        let res = await API.getEncounters(chosenBox);
+        let encounters = res.data;
+        console.log('encounters: ' + JSON.stringify(encounters));
+        setChosenScenario(encounters[0]);
+        console.log('chosenScenario: ' + chosenScenario)
+      }
+      getEncounters();
+    }
+  }, [chosenBox]);
 
   return (
     <Container fluid>
       <Row>
-        <Col lg={12}>
-          <Dropdown>
+        <Col lg={6}>
+          <Dropdown className="mt-4">
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-              Dropdown Button
+              {chosenBox}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              {boxes}
-              {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
-            </Dropdown.Menu>
+            <Dropdown.Menu>{boxes}</Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col lg={6}>
+          <Dropdown className="mt-4">
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              {chosenScenario}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>{}</Dropdown.Menu>
           </Dropdown>
         </Col>
       </Row>

@@ -3,7 +3,7 @@ const db = require("../models");
 
 mongoose.connect("mongodb://localhost/rings", {
   useNewUrlParser: true,
-  useFindAndModify: false
+  useFindAndModify: false,
 });
 
 const encounterSeed = [
@@ -13,6 +13,9 @@ const encounterSeed = [
   },
   { box: "Core Set", name: "Journey Along the Anduin" },
   { box: "Core Set", name: "Escape from Dol Guldur" },
+  { box: "Shadows of Mirkwood", name: "The Hunt for Gollum" },
+  { box: "Khazad-dum", name: "Into the Pit" },
+  {box: "Dwarrowdelf", name:"The Redhorn Gate"}
 ];
 
 db.Encounter.collection
