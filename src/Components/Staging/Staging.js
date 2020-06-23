@@ -1,28 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Dropdown } from "react-bootstrap";
 import "./Staging.css";
 import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
 import API from "../../Utils/API";
 function Staging() {
-  const scenarios = ["one", "two", "three"];
+  const [boxes, setBoxes] = useState([]);
+
+  // setBoxes(['1', '2', '3']);
+
+  useEffect(() => {
+    async function get() {
+      let res = await API.getBoxes();
+      let allBoxes = res.data;
+      console.log("allBoxes: " + JSON.stringify(allBoxes));
+      let newBoxes = allBoxes.map((box) => {
+        return <Dropdown.Item>{box.name}</Dropdown.Item>;
+      });
+      setBoxes(newBoxes);
+    }
+    get();
+  }, []);
+
+  // useEffect(() => {
+  //     const boxes = await boxResponse.data.map((box) => {
+  //       return box.name;
+  //     });
+  //     console.log("boxes: " + boxes);
+  //     setBoxes(boxes);
+
+  //   getBoxes();
+  // }, []);
 
   // function to populate dropdown
-  // async function getBoxes() {
-  //   await API.getBoxes().then((res) => {
-  //     res.data.forEach((scenario) => {
-  //       scenarios.push(scenario.name);
-  //     });
-  //   });
-  //   console.log(scenarios);
-  //   dropdown();
-  // }
-
-  const dropdown = () => {
-    return scenarios.map((scenario) => {
-      return <Dropdown.Item>{scenario}</Dropdown.Item>;
-    });
-  };
+  async function buildMenu() {
+    // if (boxes.length > 0) {
+    //   console.log('boxes > 0 . here they are: ' + boxes)
+    //   console.log('typeof boxes: ' + typeof boxes)
+    //   console.log('typeof boxes[0]: ' + typeof boxes[0])
+    //   let renderItems = boxes.map((box) => {
+    //     return box
+    //   });
+    //   return renderItems.map(box => {
+    //     return <Dropdown.Item>{box}</Dropdown.Item>
+    //   })
+    // } else {
+    //   console.log('boxes < 0')
+    // }
+    console.log(JSON.stringify(boxes));
+    // boxes.map((box) => {
+    //   return <Dropdown.Item>{box}</Dropdown.Item>;
+    // });
+    // console.log("newArr in build function: " + newArr);
+  }
 
   return (
     <Container fluid>
@@ -34,7 +64,7 @@ function Staging() {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              {dropdown()}
+              {boxes}
               {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
               <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
               <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
