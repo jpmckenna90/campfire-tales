@@ -3,7 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const apiRoutes = require("./routes/apiRoutes");
 
 app.listen(PORT, function () {

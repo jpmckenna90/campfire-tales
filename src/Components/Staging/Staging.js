@@ -8,21 +8,20 @@ function Staging() {
   const scenarios = ["one", "two", "three"];
 
   // function to populate dropdown
-  const getBoxes = () => {
-    API.getBoxes()
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  // async function getBoxes() {
+  //   await API.getBoxes().then((res) => {
+  //     res.data.forEach((scenario) => {
+  //       scenarios.push(scenario.name);
+  //     });
+  //   });
+  //   console.log(scenarios);
+  //   dropdown();
+  // }
 
   const dropdown = () => {
-    getBoxes();
-    // get array of all scenarios, map over it to create dropdown items
     return scenarios.map((scenario) => {
       return <Dropdown.Item>{scenario}</Dropdown.Item>;
     });
-    // return items;
   };
 
   return (

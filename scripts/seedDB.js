@@ -12,7 +12,7 @@ const encounterSeed = [
     name: "Passage Through Mirkwood",
   },
   { box: "Core Set", name: "Journey Along the Anduin" },
-  { box: "Core Set", name: "Escame from Dol Guldur" },
+  { box: "Core Set", name: "Escape from Dol Guldur" },
 ];
 
 db.Encounter.collection
