@@ -11,7 +11,8 @@ router.get("/api/boxes", (req, res) => {
 router.get("/api/encounters/:box", (req, res) => {
   // console.log(req.params);
   let boxValue = req.params;
-  db.Encounter.find({ box: { $eq: boxValue } })
+  console.log("boxValue: " + JSON.stringify(boxValue.box));
+  db.Encounter.find({ box: boxValue.box })
     .then((encounter) => res.json(encounter))
     .catch((err) => res.status(422).end());
   // let box = req.query

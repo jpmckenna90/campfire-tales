@@ -9,6 +9,8 @@ function Staging() {
   const [boxes, setBoxes] = useState([]);
   // set active chosen box in state
   const [chosenBox, setChosenBox] = useState("Select a Box");
+  // store list of scenarios in state
+  const [scenarios, setScenarios] = useState([]);
   // set active chosen scenario in state
   const [chosenScenario, setChosenScenario] = useState("Select a Scenario");
 
@@ -35,17 +37,21 @@ function Staging() {
     get();
   }, []);
 
-  // useEffect(() => {
-  //   API.
-  // })
   useEffect(() => {
     if (chosenBox !== "Select a Box") {
       async function getEncounters() {
         let res = await API.getEncounters(chosenBox);
-        let encounters = res.data;
-        console.log('encounters: ' + JSON.stringify(encounters));
-        setChosenScenario(encounters[0]);
-        console.log('chosenScenario: ' + chosenScenario)
+        let scenarios = res.data;
+        let newScenarios = [];
+        newScenarios = scenarios.map(scenario => {
+          return(
+            <Dropdown.Item onClick={() => {
+              setChosenScenario(scenario.name)}}
+            >{scenario.name}</Dropdown.Item>
+          )
+        });
+        console.log('newScenarios: ' + newScenarios)
+        setScenarios(newScenarios) 
       }
       getEncounters();
     }
@@ -69,7 +75,7 @@ function Staging() {
               {chosenScenario}
             </Dropdown.Toggle>
 
-            <Dropdown.Menu>{}</Dropdown.Menu>
+            <Dropdown.Menu>{scenarios}</Dropdown.Menu>
           </Dropdown>
         </Col>
       </Row>
