@@ -8,4 +8,7 @@ export default {
   getEncounters: function (box) {
     return axios.get(`/api/encounters/${box}`);
   },
+  getEncounterCards: function(encounter){
+    return axios.get(`/api/encountercards/${encounter}`)
+  }
 };

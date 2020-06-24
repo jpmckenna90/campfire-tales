@@ -4,6 +4,8 @@ import "./Staging.css";
 import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
 import API from "../../Utils/API";
+import EncounterCard from "../EncounterCard/EncounterCard";
+
 function Staging() {
   // store list of boxes in state
   const [boxes, setBoxes] = useState([]);
@@ -13,15 +15,14 @@ function Staging() {
   const [scenarios, setScenarios] = useState([]);
   // set active chosen scenario in state
   const [chosenScenario, setChosenScenario] = useState("Select a Scenario");
+  // set all encounter cards
+  const [encounterCards, setEncounterCards] = useState([]);
 
   //!TODO gotta be a better way to do this
   useEffect(() => {
     async function get() {
       let res = await API.getBoxes();
-      let allBoxes = res.data;
-      let newBoxes = [];
-      console.log("all boxes: " + JSON.stringify(allBoxes));
-      newBoxes = allBoxes.map((box) => {
+      let newBoxes = res.data.map((box) => {
         return (
           <Dropdown.Item
             onClick={() => {
@@ -41,21 +42,32 @@ function Staging() {
     if (chosenBox !== "Select a Box") {
       async function getEncounters() {
         let res = await API.getEncounters(chosenBox);
-        let scenarios = res.data;
-        let newScenarios = [];
-        newScenarios = scenarios.map(scenario => {
-          return(
-            <Dropdown.Item onClick={() => {
-              setChosenScenario(scenario.name)}}
-            >{scenario.name}</Dropdown.Item>
-          )
+        let newScenarios = res.data.map((scenario) => {
+          return (
+            <Dropdown.Item
+              onClick={() => {
+                setChosenScenario(scenario.name);
+              }}
+            >
+              {scenario.name}
+            </Dropdown.Item>
+          );
         });
-        console.log('newScenarios: ' + newScenarios)
-        setScenarios(newScenarios) 
+        setScenarios(newScenarios);
       }
       getEncounters();
     }
   }, [chosenBox]);
+
+  useEffect(() => {
+    if (chosenScenario !== "Select a Scenario") {
+      async function getEncounters() {
+        let res = await API.getEncounterCards(chosenScenario);
+        console.log(res.data);
+      }
+      getEncounters();
+    }
+  }, [chosenScenario]);
 
   return (
     <Container fluid>
@@ -65,7 +77,6 @@ function Staging() {
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               {chosenBox}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>{boxes}</Dropdown.Menu>
           </Dropdown>
         </Col>
@@ -74,7 +85,6 @@ function Staging() {
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               {chosenScenario}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>{scenarios}</Dropdown.Menu>
           </Dropdown>
         </Col>
@@ -87,6 +97,11 @@ function Staging() {
           <ActiveLocation />
         </Col>
         <Col></Col>
+      </Row>
+      <Row className="staging-area">
+        <Col>
+          <EncounterCard name="idk some orc"></EncounterCard>
+        </Col>
       </Row>
     </Container>
   );
