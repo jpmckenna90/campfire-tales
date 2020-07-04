@@ -41,4 +41,5 @@ body{
   background-image: url("../src/Assets/Images/middle-earth-4760561_1920.jpg");
   background-size:cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }

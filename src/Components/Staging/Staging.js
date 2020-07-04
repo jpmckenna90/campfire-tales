@@ -67,7 +67,7 @@ function Staging() {
         // JSON.stringify(res);
         let encounterCards = res.data.map((card) => {
           return (
-            <EncounterCard name={card.name} image={card.image}></EncounterCard>
+            <EncounterCard name={card.name} image={card.image} text={card.text}></EncounterCard>
           );
         });
         setEncounterCards(encounterCards);

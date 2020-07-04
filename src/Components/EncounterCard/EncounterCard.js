@@ -6,7 +6,10 @@ function EncounterCard(props) {
   return (
     // <Card>
     //   <Row>
-        <Image src={props.image} className="encounter-img"></Image>
+    <>
+      <h1>{props.text}</h1>
+      <Image src={props.image} className="encounter-img"></Image>
+    </>
     //   </Row>
     // </Card>
   );
