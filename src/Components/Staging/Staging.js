@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Dropdown } from "react-bootstrap";
+import { Container, Row, Col, Dropdown, Card } from "react-bootstrap";
 import "./Staging.css";
 import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
@@ -63,7 +63,12 @@ function Staging() {
     if (chosenScenario !== "Select a Scenario") {
       async function getEncounters() {
         let res = await API.getEncounterCards(chosenScenario);
-        console.log(res.data);
+        console.log('res.data: ' + JSON.stringify(res.data));
+        // JSON.stringify(res);
+        // let encounterCards = res.data.map((card) => {
+        //   return <Card>{card}</Card>;
+        // });
+        setEncounterCards(encounterCards);
       }
       getEncounters();
     }
@@ -100,7 +105,7 @@ function Staging() {
       </Row>
       <Row className="staging-area">
         <Col>
-          <EncounterCard name="idk some orc"></EncounterCard>
+          <h1>{encounterCards}</h1>
         </Col>
       </Row>
     </Container>

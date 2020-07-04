@@ -24,7 +24,8 @@
     "eject": "react-scripts eject",
     "seed": "node scripts/seedDB.js",
     "server":"nodemon server.js",
-    "dev":"npm run build && nodemon server.js"
+    "dev":"npm run build && nodemon server.js",
+    "concur":"concurrently \"nodemon server.js'\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"

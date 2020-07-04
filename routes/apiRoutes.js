@@ -17,22 +17,40 @@ router.get("/api/encounters/:box", (req, res) => {
 });
 
 router.get("/api/encountercards/:encounter", (req, res) => {
-  console.log("encounterCards route hit");
+  // ! this is really 'Scenario' value
   let encounterValue = req.params.encounter;
   let encounterArray = [];
-  db.Encounter.find(
-    { name: encounterValue }
-    // { box: 1, name: 1, encounters: 1 }
-  ).then((res) => {
-    encounterArray = res[0].encounters
-    console.log(encounterArray);
+  let encounterCardArray = [];
+  //! search Scenarios to find chosen Scenario
+
+  db.Encounter.find({ name: encounterValue }).then((response) => {
+    // ! grab all the Encounters from that Scenario, and build an array from them
+    encounterArray = response[0].encounters;
+    // ! loop through each Encounter in the given Scenario
+    encounterArray.forEach((encounter, index) => {
+      // ! and find all Encounter Cards that belong to the Encounter we're currently iterating through
+      db.EncounterCard.find({
+        encounter: encounter,
+      })
+        .then((cards) => {
+          cards.forEach((card) => {
+            if (!encounterCardArray.includes(card.id)) {
+              encounterCardArray.push(card);
+            }
+            console.log(encounterCardArray);
+          });
+          // ! if the res.json lives here, it tries to send it multiple times
+          // ! which it obviously can't do. figure out how to rectify this!
+        })
+        .catch((err) => console.log(err));
+    });
   });
 
-  db.EncounterCard.find({
-    encounter: encounterValue.encounter,
-  })
-    .then((encounterCards) => res.json(encounterCards))
-    .catch((err) => res.status(422).end());
+  function sendData() {
+    res.json(encounterCardArray);
+  }
+
+  setTimeout(sendData, 500);
 });
 
 module.exports = router;
