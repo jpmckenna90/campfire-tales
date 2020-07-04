@@ -75,6 +75,8 @@ const encounterCardSeed = [
     text:
       "Chieftan Ufthak gets +2 attack for each resource token on him. <b>Forced</b>: After Chieftan Ufthak attacks, place 1 resource token on him.",
     victory: 4,
+    image:
+      "https://s3.amazonaws.com/hallofbeorn-resources/Images/Cards/Core-Set/Chieftan-Ufthak.jpg",
   },
   {
     encounter: "Journey Along the Anduin",
@@ -85,6 +87,8 @@ const encounterCardSeed = [
       "<b>When Revealed:</b> Reveal X additional cards from the encounter deck. X is the number of players in the game.",
     shadow:
       "<b>Shadow:</b> Deal X shadow cards to this attacker. X is the number of players in the game.",
+    image:
+      "https://s3.amazonaws.com/hallofbeorn-resources/Images/Cards/Core-Set/Massing-at-Night.jpg",
   },
   {
     encounter: "Into the Pit",
@@ -98,6 +102,8 @@ const encounterCardSeed = [
     flavor:
       "At the end of the hall the floor vanished and fell to an unknown depth. The outer door could only be reached by a slender bridge of stone, without kerb or rail, that spanned the chasm with one curving spring of fifty feet. -The Fellowship of the Ring",
     victory: 2,
+    image:
+      "https://s3.amazonaws.com/hallofbeorn-resources/Images/Cards/Khazad-dum/Bridge-of-Khazad-d%C3%BBm.jpg",
   },
   {
     encounter: "Misty Mountains",
@@ -114,22 +120,13 @@ const encounterCardSeed = [
       "If Mountain Warg is dealt a shadow card with no effect, return Mountain Warg to the staging area after it attacks.",
     shadow:
       "<b>Shadow: </b>Attacking enemy gets +1 attack. (+2 instead if a <b>Mountain</b> is the active location.)",
+    image:
+      "https://s3.amazonaws.com/hallofbeorn-resources/Images/Cards/Khazad-dum/Mountain-Warg.jpg",
   },
 ];
 
-// db.EncounterCard.collection
-//   .insertMany(encounterCardSeed)
-//   .then((data) => {
-//     console.log(data.result.n + " records inserted!");
-//     process.exit(0);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     process.exit(1);
-//   });
-
-db.Encounter.collection
-  .insertMany(encounterSeed)
+db.EncounterCard.collection
+  .insertMany(encounterCardSeed)
   .then((data) => {
     console.log(data.result.n + " records inserted!");
     process.exit(0);
@@ -138,3 +135,14 @@ db.Encounter.collection
     console.error(err);
     process.exit(1);
   });
+
+// db.Encounter.collection
+//   .insertMany(encounterSeed)
+//   .then((data) => {
+//     console.log(data.result.n + " records inserted!");
+//     process.exit(0);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//     process.exit(1);
+//   });

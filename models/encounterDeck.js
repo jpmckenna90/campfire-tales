@@ -16,6 +16,7 @@ const cardSchema = new Schema({
   shadow: { type: String, required: false },
   flavor: { type: String, required: false },
   victory: { type: Number, required: false },
+  image: { type: String, required: false },
 });
 
 const EncounterCard = mongoose.model("Card", cardSchema);
