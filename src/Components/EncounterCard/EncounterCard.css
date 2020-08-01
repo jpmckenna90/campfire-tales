@@ -1,4 +1,6 @@
 .encounter-img{
-  max-height:5%;
-  max-width: 20vw;
+  /* max-height:5%; */
+  /* max-width: 20vw; */
+  height:40%;
+  margin:0px 10px;
 }

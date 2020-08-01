@@ -3,13 +3,14 @@ import "./Main.css";
 import { Container, Row, Col } from "react-bootstrap";
 import Staging from "../Staging/Staging";
 import PlayerArea from "../PlayerArea/PlayerArea";
+import StagingBox from "../StagingBox/StagingBox";
 
 function Main() {
   return (
     <Container fluid>
       <Row>
         <Col lg={6}>
-          <Staging />
+          <Staging></Staging>
         </Col>
         <Col lg={6}>
           <PlayerArea />

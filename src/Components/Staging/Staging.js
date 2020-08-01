@@ -5,6 +5,7 @@ import ActiveQuest from "../ActiveQuest/ActiveQuest";
 import ActiveLocation from "../ActiveLocation/ActiveLocation";
 import API from "../../Utils/API";
 import EncounterCard from "../EncounterCard/EncounterCard";
+import StagingBox from "../StagingBox/StagingBox";
 
 function Staging() {
   // store list of boxes in state
@@ -67,7 +68,14 @@ function Staging() {
         // JSON.stringify(res);
         let encounterCards = res.data.map((card) => {
           return (
-            <EncounterCard name={card.name} image={card.image} text={card.text}></EncounterCard>
+            <EncounterCard
+              name={card.name}
+              image={card.image}
+              text={card.text}
+              className="encounter-card"
+              id={card.name}
+              draggable="true"
+            ></EncounterCard>
           );
         });
         setEncounterCards(encounterCards);
@@ -106,7 +114,9 @@ function Staging() {
         <Col></Col>
       </Row>
       <Row className="staging-area">
-        <Col>{encounterCards}</Col>
+        <StagingBox id="staging-box" className="staging-box">
+          <Col>{encounterCards}</Col>
+        </StagingBox>
       </Row>
     </Container>
   );

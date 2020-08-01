@@ -9,6 +9,7 @@ const cardSchema = new Schema({
   traits: { type: String, required: false },
   engagement: { type: Number, required: false },
   threat: { type: Number, required: false },
+  progress: { type: Number, required: false },
   attack: { type: Number, required: false },
   defense: { type: Number, required: false },
   health: { type: Number, required: false },
